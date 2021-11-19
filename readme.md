@@ -1,6 +1,6 @@
 # Title: Pangea
 
-A dynamic messaging application that connects users around the globe. It offers many features and the ability to actively translate your message to a selected language. Log in as: Batman and use password: "password" to view demo.
+A dynamic messaging application that connects users around the globe. It offers many features and the ability to actively translate your message to a selected language. You can also create your own custom chat rooms and upload photos. Log in as: Batman and use password: "password" to view demo.
 
 The app utilizes Axios, NodeJS, React Chat Engine, React, React-Bootstrap, Chat Engine UI, Libre Translate API (https://libretranslate.com/)
 
