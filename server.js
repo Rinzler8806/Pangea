@@ -1,75 +1,16 @@
-const path = require('path');
-const http = require('http');
-const express = require('express');
-const socketio = require('socket.io');
-const formatMessage = require('./utils/messages');
-const {
-  userJoin,
-  getCurrentUser,
-  userLeave,
-  getRoomUsers
-} = require('./utils/users');
-
+const express = require("express");
+const path = require("path");
+const PORT = process.env.PORT || 3000;
 const app = express();
-const server = http.createServer(app);
-const io = socketio(server);
 
-// Set static folder
-app.use(express.static(path.join(__dirname, 'public')));
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static("client/build"));
+}
 
-const botName = 'Local Time';
-
-// Run when client connects
-io.on('connection', socket => {
-  socket.on('joinRoom', ({ username, room }) => {
-    const user = userJoin(socket.id, username, room);
-
-    socket.join(user.room);
-
-    // Welcome current user
-    socket.emit('message', formatMessage(botName, 'You have now entered Pangea!'));
-
-    // Broadcast when a user connects
-    socket.broadcast
-      .to(user.room)
-      .emit(
-        'message',
-        formatMessage(botName, `${user.username} has joined the chat`)
-      );
-
-    // Send users and room info
-    io.to(user.room).emit('roomUsers', {
-      room: user.room,
-      users: getRoomUsers(user.room)
-    });
-  });
-
-  // Listen for chatMessage
-  socket.on('chatMessage', msg => {
-    const user = getCurrentUser(socket.id);
-
-    io.to(user.room).emit('message', formatMessage(user.username, msg));
-  });
-
-  // Runs when client disconnects
-  socket.on('disconnect', () => {
-    const user = userLeave(socket.id);
-
-    if (user) {
-      io.to(user.room).emit(
-        'message',
-        formatMessage(botName, `${user.username} has left the chat`)
-      );
-
-      // Send users and room info
-      io.to(user.room).emit('roomUsers', {
-        room: user.room,
-        users: getRoomUsers(user.room)
-      });
-    }
-  });
+app.get("*", function(req, res) {
+    res.sendFile(path.join(__dirname, "./public/index.html"));
 });
 
-const PORT = process.env.PORT || 3009;
-
-server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, function() {
+    console.log(`🌎 ==> API server now on port ${PORT}!`);
+});

@@ -1,18 +1,12 @@
 # Title: Pangea
 
+A dynamic messaging application that connects users around the globe. It offers many features and the ability to actively translate your message to a selected language. Log in as: Batman and use password: "password" to view demo.
 
-# Group Members
-Ahmed Ali
-Keith Sutton
-Natan Stuart
-Shane Rogers
+The app utilizes Axios, NodeJS, Chat Engine API, React, React-Bootstrap, Chat Engine UI, Libre Translate (https://libretranslate.com/)
 
-# Functionality
+## Contributors
+Keith Sutton, Ahmed Ali, Shane Rogers, Natan Stuart
 
-The purpose of this app is to allow text communication and break language barriers. This app will utilize google translate API and google maps API.
-The app will translate in real time with the pre-selected language the user chooses to translate to from their pre-selected primary language.
-The user will be able to view a map that will show the recipients location.
-The user will be able to add people to a friends list.
-Login functionality where the user creates a username and password.
+Check it out at the following link: https://pangeachat.herokuapp.com/
 
-![](Pangearoughsketch.png)
+![](pangea.png)
